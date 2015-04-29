@@ -63,3 +63,18 @@ Sub ExportSmartApp(control As IRibbonControl)
     Next VBComp
     
 End Sub
+
+'Callback for ImportSA onAction
+Sub ImportSmartApp(control As IRibbonControl)
+    Const path = "C:\Users\qolsmat\Desktop\vbatest\files"
+    Dim xlWb As Excel.Workbook
+    Dim VBComp As VBIDE.VBComponent
+    Dim VBComps As VBIDE.VBComponents
+    
+    ' Load workbook
+    Set xlWb = ThisWorkbook
+    
+    ' List all files in folders module, class and forms with Dir$, and import them to the project, overwriting (?) the existing ones.
+    ' Import those using:
+    ' VBComps.Import(path & "\files\file.bas")
+End Sub
