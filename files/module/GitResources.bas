@@ -24,7 +24,7 @@ Sub ExportSmartApp(control As IRibbonControl)
         End If
         i = i + 1
     Next VBComp
-    MsgBox i & " files copied. You can now commit and push these to the Git repository. You may also want to check that no double module/class/forms has been created... ", vbInformation, "Success!"
+    MsgBox i & " code files exported. You can now commit and push these to the Git repository. You may also want to check that no double module/class/forms has been created... ", vbInformation, "Success!"
 End Sub
 
 'Callback for ImportSA onAction
@@ -49,9 +49,9 @@ Sub ImportSmartApp(control As IRibbonControl)
         Debug.Print d
         For Each f In d.Files
             Debug.Print f
-            If f.Name <> "GitResources.bas" Then
+            If f.Name <> "GitResources.bas" And Right(f.Name, 4) <> ".frx" Then
                 ' Must remove module before importing, which really must be tested before using on SmartApp. Always keep a backup file too.
-                Set VBComp = ThisWorkbook.VBProject.VBComponents(RemoveExtension(f.Name)) ' Ok den hittar inte pga CDatabase.cls. CDatabase går.
+                Set VBComp = xlWb.VBProject.VBComponents(RemoveExtension(f.Name)) ' Ok den hittar inte pga CDatabase.cls. CDatabase går.
                 ThisWorkbook.VBProject.VBComponents.Remove VBComp
                 ThisWorkbook.VBProject.VBComponents.Import f
             End If
@@ -59,14 +59,11 @@ Sub ImportSmartApp(control As IRibbonControl)
         Next f
     Next d
     i = i - 1 ' Adjust file for not importing this module.
-    MsgBox i & " files imported to the file.", vbInformation, "Success!"
+    MsgBox i & " code files imported to the file.", vbInformation, "Success!"
 End Sub
 
 Public Function RemoveExtension(ByVal str As String) As String
     Dim pos As Integer
-    
     pos = InStr(str, ".")
     RemoveExtension = Left(str, pos - 1)
-    
-    
 End Function
