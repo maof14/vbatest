@@ -2,6 +2,7 @@ Attribute VB_Name = "GitResources"
 Option Explicit
 
 ' This module requires reference Microsoft Visual Basic For Applications Extensibility 5.1
+' todo - Add functionality to check the file modified date. No need to export unmodified files. May need fso for that.
 Sub ExportSmartApp(control As IRibbonControl)
     Const path = "C:\Users\qolsmat\Desktop\vbatest\files\"
     Dim xlWb As Excel.Workbook
@@ -50,9 +51,9 @@ Sub ImportSmartApp(control As IRibbonControl)
             Debug.Print f
             If f.Name <> "GitResources.bas" Then
                 ' Must remove module before importing, which really must be tested before using on SmartApp. Always keep a backup file too.
-                Set VBComp = ThisWorkbook.VBIDE.VBProject.VBComponents(f.Name)
-                ThisWorkbook.VBIDE.VBProject.VBComponents.Remove VBComp
-                ThisWorkbook.VBIDE.VBProject.VBComponents.Import f
+                Set VBComp = ThisWorkbook.VBProject.VBComponents(RemoveExtension(f.Name)) ' Ok den hittar inte pga CDatabase.cls. CDatabase går.
+                ThisWorkbook.VBProject.VBComponents.Remove VBComp
+                ThisWorkbook.VBProject.VBComponents.Import f
             End If
             i = i + 1
         Next f
@@ -61,3 +62,11 @@ Sub ImportSmartApp(control As IRibbonControl)
     MsgBox i & " files imported to the file.", vbInformation, "Success!"
 End Sub
 
+Public Function RemoveExtension(ByVal str As String) As String
+    Dim pos As Integer
+    
+    pos = InStr(str, ".")
+    RemoveExtension = Left(str, pos - 1)
+    
+    
+End Function
