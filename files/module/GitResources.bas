@@ -33,6 +33,7 @@ Sub ImportSmartApp(control As IRibbonControl)
     Dim VBComp As VBIDE.VBComponent
     Dim VBComps As VBIDE.VBComponents
     Dim fso, topDir, d, subDir, f As Variant
+    'Dim f As VBIDE.VBComponent
     Dim i As Integer
     Set fso = CreateObject("Scripting.FileSystemObject")
     
@@ -48,7 +49,10 @@ Sub ImportSmartApp(control As IRibbonControl)
         For Each f In d.Files
             Debug.Print f
             If f.Name <> "GitResources.bas" Then
-                VBComps.Import (f)
+                ' Must remove module before importing, which really must be tested before using on SmartApp. Always keep a backup file too.
+                Set VBComp = ThisWorkbook.VBIDE.VBProject.VBComponents(f.Name)
+                ThisWorkbook.VBIDE.VBProject.VBComponents.Remove VBComp
+                ThisWorkbook.VBIDE.VBProject.VBComponents.Import f
             End If
             i = i + 1
         Next f
