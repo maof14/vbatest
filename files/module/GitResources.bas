@@ -3,7 +3,7 @@ Option Explicit
 
 ' This module requires reference Microsoft Visual Basic For Applications Extensibility 5.1
 ' todo - Add functionality to check the file modified date. No need to export unmodified files. May need fso for that.
-' Test of git settings..
+
 Sub ExportSmartApp(control As IRibbonControl)
     Const path = "C:\Users\qolsmat\Desktop\vbatest\files\"
     Dim xlWb As Excel.Workbook
