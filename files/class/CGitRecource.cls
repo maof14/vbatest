@@ -75,17 +75,19 @@ Public Sub ImportCode()
     ' Load workbook
     Set xlWb = ThisWorkbook
     
-    Set topDir = fso.getFolder(Me.path)
+    Set topDir = fso.getFolder(Me.filesPath)
     Set subDir = topDir.subFolders
     
     ' If "files" dir does not exist, exit (no files exist to import)
-    If Dir(Me.filesPath) = "" Then Exit Sub
+    If Dir(Me.filesPath) <> "" Then
+        MsgBox "You do not seem to have any " & Chr(34) & "files" & Chr(34) & " directory in this folder, exiting.", vbCritical, "Error!"
+        Return
+        Exit Sub
+    End If
     
     ' Loop through the files in each path.
     For Each d In subDir
-        Debug.Print d
         For Each f In d.Files
-            Debug.Print f
             If f.Name <> "CGitResource.cls" And GetExtension(f.Name) <> ".frx" Then
                 ' Must remove the project's VBComps before importing, which really must be tested before using on SmartApp. Always keep a backup file too.
                 Set VBComp = xlWb.VBProject.VBComponents(RemoveExtension(f.Name))
@@ -101,19 +103,19 @@ End Sub
 ' Function to remove the extension from a filename
 ' Param str, a filename
 ' Return the filename without extension i.e. file.xls -> file
-Public Function RemoveExtension(ByVal str As String) As String
+Public Function RemoveExtension(ByVal fileName As String) As String
     Dim pos As Integer
-    pos = InStrRev(str, ".")
-    RemoveExtension = Left(str, pos - 1)
+    pos = InStrRev(fileName, ".")
+    RemoveExtension = Left(fileName, pos - 1)
 End Function
 
 ' Function to get the extension from a filename
 ' Param str, a filename
 ' Return the extension i.e. file.xls -> .xls
-Public Function GetExtension(ByVal str As String) As String
+Public Function GetExtension(ByVal fileName As String) As String
     Dim pos As Integer
-    pos = InStrRev(str, ".")
-    GetExtension = Right(str, Len(str) - pos + 1)
+    pos = InStrRev(fileName, ".")
+    GetExtension = Right(fileName, Len(fileName) - pos + 1)
 End Function
 
 ' Native constructor
