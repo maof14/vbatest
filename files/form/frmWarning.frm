@@ -18,6 +18,7 @@ Attribute VB_Exposed = False
 
 
 
+
 Public response As Boolean
 ' Logic here:
 ' User presses cancel: Cancel processing the conversion. Warning should appear over and over again.

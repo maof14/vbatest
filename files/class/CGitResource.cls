@@ -12,7 +12,7 @@ Option Explicit
 ' Created by Mattias Olsson XB 20150504
 
 ' This module requires the project to have the reference Microsoft Visual Basic For Applications Extensibility 5.1
-' todo - Add functionality to check the file modified date. No need to export unmodified files. May need fso for that. Or is that a good idea?
+' todo - Add functionality to check the file modified date. No need to export unmodified files.
 '
 
 ' Members
@@ -95,7 +95,7 @@ Public Sub ImportCode()
     ' Loop through the files in each path.
     For Each d In subDir
         For Each f In d.Files
-            If f.Name <> "CGitResource.cls" And GetExtension(f.Name) <> ".frx" Then
+            If f.Name <> "CGitResource.cls" And GetExtension(f.Name) <> ".frx" And f.Name <> "GitResourceHelper.bas" Then
                 ' Must remove the project's VBComps before importing, which really must be tested before using on SmartApp. Always keep a backup file too.
                 Set VBComp = xlWb.VBProject.VBComponents(RemoveExtension(f.Name))
                 xlWb.VBProject.VBComponents.Remove VBComp
