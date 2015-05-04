@@ -23,7 +23,7 @@ Const DB_PATH = "\\esekina005\groupfbs\EM-SHARED INFO\qolsmat\DMC SmartApp\ECB.m
 'Const DB_PATH = "C:\Users\qolsmat\Desktop\ECB.mdb" ' Local path
 
 ' Custom "Constructor" - shared stuff for all queries and open DB
-Public Sub init()
+Public Sub Init()
     Set Me.Connection = New ADODB.Connection
     Me.Connection.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & DB_PATH & ";Persist Security Info=False"
     Me.Connection.Open

@@ -4,6 +4,9 @@ Option Explicit
 ' Function iterates through cells in the selected area and searches the DB based on the tag specified on the control argument.
 ' control.Tag should contain a string containing table, have and want, separated by commas. I.e "ECB3,pCodeOne,pCode" would mean "I have pCodeOne, look in ECB4 for the corresponding pCode value".
 'Callback for OneToOneRelation onAction
+Dim gr As CGitRecource
+Dim path As String
+
 Sub OneToOneRelation(control As IRibbonControl)
     Dim db As CDatabase
     Dim res As Collection
@@ -18,7 +21,7 @@ Sub OneToOneRelation(control As IRibbonControl)
     End If
     
     Set db = New CDatabase
-    db.init
+    db.Init
     
     Dim str, table, have, want, SQL As String
     str = Split(control.tag, ",")
@@ -48,4 +51,18 @@ Sub OneToOneRelation(control As IRibbonControl)
             c.value = "'" & r
         Next r
     Next c
+End Sub
+
+Sub ExportSmartApp(control As IRibbonControl)
+    Set gr = New CGitRecource
+    gr.Init ' Set path of WB
+    gr.ExportCode
+    Set gr = Nothing
+End Sub
+
+Sub ImportSmartApp(control As IRibbonControl)
+    Set gr = New CGitRecource
+    gr.Init ' Sets path of this WB, used in import
+    gr.ImportCode
+    Set gr = Nothing
 End Sub
