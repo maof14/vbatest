@@ -9,7 +9,7 @@ Functionality needs to be implemented to also import the files into the .xlam fi
 ## Dependencies 
 
 CDatabase: 
-** Microsoft ActiveX Data Objects 6.1 Library
+* Microsoft ActiveX Data Objects 6.1 Library
 
 CGitResources: 
-** Microsoft Visual Basic for Applications Extensibility 5.1 
+* Microsoft Visual Basic for Applications Extensibility 5.1 
