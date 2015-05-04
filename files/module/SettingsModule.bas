@@ -14,11 +14,11 @@ ByVal lpKeyName As String, _
 ByVal lpString As String, _
 ByVal lpFileName As String) As Long
 
-Private Function GetINIString(ByVal sApp As String, ByVal sKey As String, ByVal filepath As String) As String
+Private Function GetINIString(ByVal sApp As String, ByVal sKey As String, ByVal filePath As String) As String
     Dim sBuf As String * 256
     Dim lBuf As Long
 
-    lBuf = GetPrivateProfileString(sApp, sKey, "", sBuf, Len(sBuf), filepath)
+    lBuf = GetPrivateProfileString(sApp, sKey, "", sBuf, Len(sBuf), filePath)
     GetINIString = Left$(sBuf, lBuf)
 End Function
 

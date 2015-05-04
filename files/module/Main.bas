@@ -4,7 +4,7 @@ Option Explicit
 ' Function iterates through cells in the selected area and searches the DB based on the tag specified on the control argument.
 ' control.Tag should contain a string containing table, have and want, separated by commas. I.e "ECB3,pCodeOne,pCode" would mean "I have pCodeOne, look in ECB4 for the corresponding pCode value".
 'Callback for OneToOneRelation onAction
-Dim gr As CGitRecource
+Dim gr As CGitResource
 Dim path As String
 
 Sub OneToOneRelation(control As IRibbonControl)
@@ -15,9 +15,10 @@ Sub OneToOneRelation(control As IRibbonControl)
     ' Warning not to overwrite
     If (getHideConvertWarning = "0" Or getHideConvertWarning = "") Then
         Set warning = New frmWarning
-        warning.lblPrompt = "You will not be able to undo this action. If you just want to see the results, you can create a new column, copy the values you want to convert, and try there so nothing important gets overwritten."
+        warning.lblPrompt = "You will not be able to undo this action. If you just want to see the results, you can create a new column, copy the values you want to convert, and try the conversion there so nothing important gets overwritten."
         warning.Show
         If warning.response = False Then Exit Sub
+        Set warning = Nothing
     End If
     
     Set db = New CDatabase
@@ -54,14 +55,14 @@ Sub OneToOneRelation(control As IRibbonControl)
 End Sub
 
 Sub ExportSmartApp(control As IRibbonControl)
-    Set gr = New CGitRecource
+    Set gr = New CGitResource
     gr.Init ' Set path of WB
     gr.ExportCode
     Set gr = Nothing
 End Sub
 
 Sub ImportSmartApp(control As IRibbonControl)
-    Set gr = New CGitRecource
+    Set gr = New CGitResource
     gr.Init ' Sets path of this WB, used in import
     gr.ImportCode
     Set gr = Nothing
