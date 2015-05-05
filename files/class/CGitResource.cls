@@ -56,7 +56,7 @@ Public Sub ExportCode()
         MkDir (Me.path & "files\form") ' form dir
     End If
     
-    ' Loop through all files (components) in the workbook VBComponents collection
+    ' Loop through all files (components) in the workbook VBComponents collection and export each to matching folder.
     For Each VBComp In xlWb.VBProject.VBComponents
         ' Export the files
         If VBComp.Type = vbext_ct_StdModule Then
@@ -68,7 +68,7 @@ Public Sub ExportCode()
         End If
         i = i + 1
     Next VBComp
-    MsgBox i & " code files exported. You can now commit and push these to the Git repository. You may also want to check that no double module/class/forms has been created... ", vbInformation, "Success!"
+    InputBox i & " code files exported. You can now commit and push these to the Git repository. You may also want to check that no double module/class/forms has been created..." & vbCrLf & vbCrLf & "Copy the path to the project and paste into Git Bash.", "Success!", "cd " & Replace(ThisWorkbook.path, "\", "/")
 End Sub
 
 ' Function to Import files into the VBA project

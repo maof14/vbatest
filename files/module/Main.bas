@@ -30,12 +30,14 @@ Sub OneToOneRelation(control As IRibbonControl)
     have = str(1)
     want = str(2)
     
-    ' PCode special case scenario.
-    If (have = "AnyPCode") Then
-        If (Len(ActiveCell.value) = 3) Then ' have will be "AnyPCode". which is not len = 3. Instead, check if the cell value is len = 3. Selection(0) (array index 0, first cell)
+    ' PCode special case scenario to be able to toggle between them.
+    If (have = "AnyPCode" And want = "AnyPCode") Then
+        If (Len(ActiveCell.value) = 3) Then
             have = "pCodeOne"
+            want = "pCode"
         Else
             have = "pCode"
+            want = "pCodeOne"
         End If
     End If
     

@@ -8,6 +8,8 @@ Functionality needs to be implemented to also import the files into the .xlam fi
 
 ## Dependencies 
 
+This project depends on the following classes: 
+
 CDatabase: 
 * Microsoft ActiveX Data Objects 6.1 Library
 

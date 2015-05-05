@@ -1,4 +1,6 @@
 Attribute VB_Name = "SettingsModule"
+Option Explicit
+
 ' Declare base functions
 Private Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" ( _
 ByVal lpApplicationName As String, _

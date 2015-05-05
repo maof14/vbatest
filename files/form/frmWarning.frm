@@ -1,6 +1,6 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmWarning 
-   Caption         =   "Warning"
+   Caption         =   "Warning!"
    ClientHeight    =   2040
    ClientLeft      =   45
    ClientTop       =   375
@@ -13,12 +13,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-
-
-
-
-
-
 Public response As Boolean
 ' Logic here:
 ' User presses cancel: Cancel processing the conversion. Warning should appear over and over again.
@@ -32,7 +26,7 @@ Private Sub btnCancel_Click()
     response = False
 End Sub
 
-Private Sub btnOk_Click()
+Private Sub btnOK_Click()
     ' Proceed with conversion, leave settings untouched.
     If (Me.chbDontShow.value = True) Then
         setHideConvertWarning ("1")
