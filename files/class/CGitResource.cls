@@ -30,14 +30,14 @@ End Enum
 ' Custom constructor for the class.
 ' Param String path, the path where the files should be exported to or imported from
 ' Return void.
-Public Sub Init(Optional ByVal wbPathWithoutEndSlash)
-    Dim wbPath As String
-    If IsMissing(wbPathWithoutEndSlash) Then
-        wbPath = ThisWorkbook.path
+Public Sub Init(ByVal wbName As String)
+    ' Load workbook.
+    If IsMissing(wbName) Then
+        Set xlWb = ThisWorkbook
     Else
-        wbPath = wbPathWithoutEndSlash
+        Set xlWb = Workbooks(wbName)
     End If
-    Me.path = wbPath & "\"
+    Me.path = xlWb.path & "\"
     Me.filesPath = Me.path & "files\"
 End Sub
 
@@ -45,15 +45,13 @@ End Sub
 ' Return void.
 Public Sub ExportCode()
     Dim i As Integer
-    ' Load workbook
-    Set xlWb = ThisWorkbook
     
     ' Create folders if there are none.
     If (Dir(Me.filesPath, vbDirectory) = "") Then
         MkDir (Me.path & "files") ' top code dir
-        MkDir (Me.path & "files\module") ' module dir
-        MkDir (Me.path & "files\class") ' class dir
-        MkDir (Me.path & "files\form") ' form dir
+        MkDir (Me.path & "files\module")
+        MkDir (Me.path & "files\class")
+        MkDir (Me.path & "files\form")
     End If
     
     ' Loop through all files (components) in the workbook VBComponents collection and export each to matching folder.
@@ -68,10 +66,11 @@ Public Sub ExportCode()
         End If
         i = i + 1
     Next VBComp
-    InputBox i & " code files exported. You can now commit and push these to the Git repository. You may also want to check that no double module/class/forms has been created..." & vbCrLf & vbCrLf & "Copy the path to the project and paste into Git Bash.", "Success!", "cd " & Replace(ThisWorkbook.path, "\", "/")
+    InputBox i & " code files exported. You can now commit and push these to the Git repository. You may also want to check that no double module/class/forms has been created..." & vbCrLf & vbCrLf & "Copy the path to the project and paste into Git Bash.", "Success!", "cd " & Replace(xlWb.path, "\", "/")
 End Sub
 
 ' Function to Import files into the VBA project
+' Todo - functionality to import modules to another workbook.
 ' Return void
 Public Sub ImportCode()
     Dim VBComps As VBIDE.VBComponents
@@ -79,9 +78,6 @@ Public Sub ImportCode()
     Dim i As Integer
     
     Set fso = CreateObject("Scripting.FileSystemObject")
-    
-    ' Load workbook
-    Set xlWb = ThisWorkbook
     
     Set topDir = fso.getFolder(Me.filesPath)
     Set subDir = topDir.subFolders
@@ -96,6 +92,7 @@ Public Sub ImportCode()
     For Each d In subDir
         For Each f In d.Files
             If f.Name <> "CGitResource.cls" And GetExtension(f.Name) <> ".frx" And f.Name <> "GitResourceHelper.bas" Then
+                ' CGitResource and GitResourceHelper should be imported from the VBE only. Those can't be imported as they run this, or helps to do so.
                 ' Must remove the project's VBComps before importing, which really must be tested before using on SmartApp. Always keep a backup file too.
                 Set VBComp = xlWb.VBProject.VBComponents(RemoveExtension(f.Name))
                 xlWb.VBProject.VBComponents.Remove VBComp

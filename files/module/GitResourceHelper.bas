@@ -5,12 +5,18 @@ Option Explicit
 
 Dim gr As CGitResource
 Dim path As String
+Dim exportPath As String
+Dim chosenWB As Workbook
+Dim exportPrompt As frmExport
 
 Sub ExportSmartApp(control As IRibbonControl)
+    Set exportPrompt = New frmExport
+    frmExport.Show
     Set gr = New CGitResource
-    gr.Init
+    gr.Init frmExport.chosenWB
     gr.ExportCode
     Set gr = Nothing
+    Set frmExport = Nothing
 End Sub
 
 Sub ImportSmartApp(control As IRibbonControl)
