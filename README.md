@@ -8,7 +8,7 @@ Functionality needs to be implemented to also import the files into the .xlam fi
 
 ## Dependencies 
 
-This project depends on the following classes: 
+This project contains the following two classes, which depends on two VBA references: 
 
 CDatabase: 
 * Microsoft ActiveX Data Objects 6.1 Library
