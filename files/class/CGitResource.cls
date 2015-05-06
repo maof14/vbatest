@@ -30,7 +30,7 @@ End Enum
 ' Custom constructor for the class.
 ' Param String path, the path where the files should be exported to or imported from
 ' Return void.
-Public Sub Init(ByVal wbName As String)
+Public Sub Init(Optional ByVal wbName As String)
     ' Load workbook.
     If IsMissing(wbName) Then
         Set xlWb = ThisWorkbook

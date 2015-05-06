@@ -14,6 +14,7 @@ Sub OneToOneRelation(control As IRibbonControl)
     ' Warning not to overwrite
     If (getHideConvertWarning = "0" Or getHideConvertWarning = "") Then
         Set warning = New frmWarning
+        warning.Init WConvertWarning
         warning.lblPrompt = "You will not be able to undo this action. If you just want to see the results, you can create a new column, copy the values you want to convert, and try the conversion there so nothing important gets overwritten."
         warning.Show
         If warning.response = False Then Exit Sub
