@@ -17,9 +17,12 @@ Option Explicit
 
 Public exportPath As String
 Public chosenWB As String
+Public proceed As Boolean
 
 Private Sub btnCancel_Click()
     ' Cancel exporting.
+    Me.proceed = False
+    Me.lstWB.Clear
     Me.Hide
 End Sub
 
@@ -48,6 +51,7 @@ Private Sub btnOK_Click()
         Next i
         Me.chosenWB = Me.lstWB.List(i)
     End If
+    Me.proceed = True
     Me.Hide
 End Sub
 
@@ -69,4 +73,20 @@ Private Sub optOtherWB_Click()
     Next wb
     i = 0
     Me.lstWB.Enabled = True
+End Sub
+
+Private Sub UserForm_Activate()
+    If Application.Workbooks.Count = 0 Then
+        Me.optOtherWB.Enabled = False
+    Else
+        Me.optOtherWB.Enabled = True
+    End If
+End Sub
+
+Private Sub UserForm_Initialize()
+    Debug.Print "Class frmExport initialized"
+End Sub
+
+Private Sub UserForm_Terminate()
+    Debug.Print "Class frmExport terminated"
 End Sub

@@ -13,6 +13,7 @@ Sub ExportSmartApp(control As IRibbonControl)
     Set exportPrompt = New frmExport
     frmExport.Show
     Set gr = New CGitResource
+    If frmExport.proceed = False Then Exit Sub
     gr.Init frmExport.chosenWB
     gr.ExportCode
     Set gr = Nothing
