@@ -4,6 +4,7 @@ Option Explicit
 ' Function iterates through cells in the selected area and searches the DB based on the tag specified on the control argument.
 ' control.Tag should contain a string containing table, have and want, separated by commas. I.e "ECB3,pCodeOne,pCode" would mean "I have pCodeOne, look in ECB4 for the corresponding pCode value".
 'Callback for OneToOneRelation onAction
+' TEST
 
 
 Sub OneToOneRelation(control As IRibbonControl)
